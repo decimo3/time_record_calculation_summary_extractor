@@ -1,0 +1,21 @@
+Registry = {
+  'estabelecimento': [],
+  'departamento': [],
+  'matricula': [],
+  'nome_colaborador': [],
+  'inicio_periodo': [],
+  'final_periodo': [],
+  'saldo_anterior': [],
+  'horas_negativas_quantidade': [],
+  'horas_negativas_compensadas_neste_periodo': [],
+  'horas_negativas_compensadas_outros_periodos': [],
+  'horas_negativas_descontadas': [],
+  'horas_negativas_saldo': [],
+  'horas_positivas_quantidade': [],
+  'horas_positivas_compensadas_neste_periodo': [],
+  'horas_positivas_compensadas_outros_periodos': [],
+  'horas_positivas_descontadas': [],
+  'horas_positivas_saldo': [],
+  'saldo_periodo': [],
+  'saldo_final': []
+}
