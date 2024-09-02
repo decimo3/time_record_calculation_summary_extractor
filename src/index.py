@@ -17,6 +17,8 @@ if __name__ == "__main__":
     reader = PdfReader(file)
     estabelecimento_texto = ''
     departamento_texto = ''
+    nome_colaborador = ''
+    matricula = ''
     for page_number in range(len(reader.pages)):
       page = reader.pages[page_number]
       text = page.extract_text()
@@ -33,9 +35,8 @@ if __name__ == "__main__":
         # DONE - Coletar 'matricula' e 'nome_colaborador'
         match = re.findall('^[0-9]{6}', line_words[0])
         if(len(match) == 1):
-          Registry['matricula'].append(match[0])
+          matricula = match[0]
           nome_colaborador = str.join(' ', line_words[2:])
-          Registry['nome_colaborador'].append(nome_colaborador)
           continue
         # DONE - Coletar a lista de horarios
         match = re.findall('-?[0-9]{2}:[0-9]{2}', line_text)
@@ -61,5 +62,7 @@ if __name__ == "__main__":
         # DONE - Define 'estabelecimento' e 'departamento' 
         Registry['estabelecimento'].append(estabelecimento_texto)
         Registry['departamento'].append(departamento_texto)
+        Registry['nome_colaborador'].append(nome_colaborador)
+        Registry['matricula'].append(matricula)
     dataframe = pandas.DataFrame(Registry)
     dataframe.to_csv(path_or_buf='out.csv',index=False,sep=';')
