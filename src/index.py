@@ -8,6 +8,12 @@ import pandas
 from pypdf import PdfReader
 from Scheme import Registry
 #endregion imports
+
+def get_decimal_time_from_time_string(time: str) -> str:
+  """ Function that transforms time of day string on decimal time """
+  h, m = [int(x) for x in time.split(':')]
+  return f"{h},{str(m/60).split('.')[1]}"
+
 if __name__ == "__main__":
   if(len(sys.argv) != 2):
     raise ValueError()
@@ -41,19 +47,19 @@ if __name__ == "__main__":
         # DONE - Coletar a lista de horarios
         match = re.findall('-?[0-9]{2}:[0-9]{2}', line_text)
         if(len(match) != 13): continue
-        Registry['saldo_anterior'].append(match[0])
-        Registry['horas_negativas_quantidade'].append(match[1])
-        Registry['horas_negativas_compensadas_neste_periodo'].append(match[2])
-        Registry['horas_negativas_compensadas_outros_periodos'].append(match[3])
-        Registry['horas_negativas_descontadas'].append(match[4])
-        Registry['horas_negativas_saldo'].append(match[5])
-        Registry['horas_positivas_quantidade'].append(match[6])
-        Registry['horas_positivas_compensadas_neste_periodo'].append(match[7])
-        Registry['horas_positivas_compensadas_outros_periodos'].append(match[8])
-        Registry['horas_positivas_descontadas'].append(match[9])
-        Registry['horas_positivas_saldo'].append(match[10])
-        Registry['saldo_periodo'].append(match[11])
-        Registry['saldo_final'].append(match[12])
+        Registry['saldo_anterior'].append(get_decimal_time_from_time_string(match[0]))
+        Registry['horas_negativas_quantidade'].append(get_decimal_time_from_time_string(match[1]))
+        Registry['horas_negativas_compensadas_neste_periodo'].append(get_decimal_time_from_time_string(match[2]))
+        Registry['horas_negativas_compensadas_outros_periodos'].append(get_decimal_time_from_time_string(match[3]))
+        Registry['horas_negativas_descontadas'].append(get_decimal_time_from_time_string(match[4]))
+        Registry['horas_negativas_saldo'].append(get_decimal_time_from_time_string(match[5]))
+        Registry['horas_positivas_quantidade'].append(get_decimal_time_from_time_string(match[6]))
+        Registry['horas_positivas_compensadas_neste_periodo'].append(get_decimal_time_from_time_string(match[7]))
+        Registry['horas_positivas_compensadas_outros_periodos'].append(get_decimal_time_from_time_string(match[8]))
+        Registry['horas_positivas_descontadas'].append(get_decimal_time_from_time_string(match[9]))
+        Registry['horas_positivas_saldo'].append(get_decimal_time_from_time_string(match[10]))
+        Registry['saldo_periodo'].append(get_decimal_time_from_time_string(match[11]))
+        Registry['saldo_final'].append(get_decimal_time_from_time_string(match[12]))
         # DONE - Coletar 'periodo_inicio' e 'final_periodo'
         match = re.findall('[0-9]{2}/[0-9]{2}', line_text)
         if(len(match) == 2):
