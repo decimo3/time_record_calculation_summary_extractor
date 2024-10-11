@@ -16,9 +16,15 @@ def get_decimal_time_from_time_string(time: str) -> str:
 
 if __name__ == "__main__":
   if(len(sys.argv) != 2):
-    raise ValueError()
+    raise ValueError("O caminho do arquivo não foi especificado!")
   if not (os.path.exists(sys.argv[1])):
-    raise FileNotFoundError()
+    raise FileNotFoundError("O arquivo informado não foi encontrado!")
+  extension = sys.argv[1].split('.')[-1]
+  if extension.lower() != 'pdf':
+    raise ValueError("O tipo do arquivo não é suportado!")
+  filepath = os.path.dirname(sys.argv[1])
+  filename = os.path.basename(sys.argv[1])
+  outpath = os.path.join(filepath, filename.replace(extension, 'csv'))
   with open(sys.argv[1], 'rb') as file:
     reader = PdfReader(file)
     estabelecimento_texto = ''
@@ -71,4 +77,7 @@ if __name__ == "__main__":
         Registry['nome_colaborador'].append(nome_colaborador)
         Registry['matricula'].append(matricula)
     dataframe = pandas.DataFrame(Registry)
-    dataframe.to_csv(path_or_buf='out.csv',index=False,sep=';')
+    dataframe.to_csv(path_or_buf=outpath,index=False,sep=';')
+  print(f'File was writen on: {outpath}')
+  input('Press any key to open file.')
+  os.startfile(outpath)
